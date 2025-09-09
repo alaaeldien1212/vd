@@ -96,10 +96,10 @@ export default function SchedulePage() {
 
           return {
             ...schedule,
-            project_name: schedule.projects.name,
+            project_name: (schedule.projects as any)?.name,
             activities: activitiesData?.map(activity => ({
               ...activity,
-              assigned_user_name: activity.users ? `${activity.users.first_name} ${activity.users.last_name}` : null
+              assigned_user_name: activity.users ? `${(activity.users as any).first_name} ${(activity.users as any).last_name}` : null
             })) || []
           }
         })

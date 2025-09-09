@@ -56,6 +56,7 @@ export default function VendorPortalPage() {
   const [milestones, setMilestones] = useState<Milestone[]>([])
   const [evidence, setEvidence] = useState<Evidence[]>([])
   const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
   const [selectedMilestone, setSelectedMilestone] = useState<string | null>(null)
   const [uploading, setUploading] = useState(false)
   const [submitting, setSubmitting] = useState(false)
@@ -124,7 +125,7 @@ export default function VendorPortalPage() {
 
     } catch (error) {
       console.error('Error fetching project data:', error)
-      setError(error.message)
+      setError(error instanceof Error ? error.message : 'An error occurred')
     } finally {
       setLoading(false)
     }

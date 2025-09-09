@@ -45,6 +45,7 @@ interface Milestone {
   weight_percentage: number
   evidence_required: boolean
   evidence_count: number
+  vendor_notes: string
   rejection_reason?: string
 }
 
@@ -107,6 +108,7 @@ export default function ProjectDetailPage() {
           completion_percentage,
           weight_percentage,
           evidence_required,
+          vendor_notes,
           rejection_reason,
           milestone_evidence(count)
         `)

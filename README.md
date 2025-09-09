@@ -1,208 +1,160 @@
-# Milestone Tracker SaaS Platform
+# Vendor Milestone Management System (VMMS)
 
-A comprehensive Procurement & Construction Milestone Tracking Platform built with Next.js and Supabase.
+A secure, auditable Vendor Milestone Management System for enterprise project management with real-time tracking, approval workflows, and comprehensive audit trails.
 
 ## 🚀 Features
 
-### Core Functionality
-- **Centralized Milestone Tracking**: Manage hundreds of purchase orders and construction milestones across multiple vendors and countries
-- **Customizable Milestone Templates**: Create reusable milestone libraries for different project types
-- **Percentage-based Progress Tracking**: Weight milestones and track completion percentages
-- **Vendor Self-Service Portal**: Vendors can update milestones, upload evidence, and request payments
-- **Built-in Approval Workflow**: Client verification before invoice release ensures control and accountability
-- **Multi-Project Dashboard**: Compare performance across all projects and vendors
-- **Real-time Notifications**: Automated alerts for overdue milestones and approval requests
+- **Project Management**: Create and manage projects with milestones and dependencies
+- **Vendor Portal**: Secure token-based access for vendor submissions
+- **Approval Workflows**: Multi-level approval with SLA tracking
+- **Real-time Dashboard**: Portfolio-wide progress monitoring
+- **Audit Trails**: Comprehensive logging and compliance tracking
+- **Internationalization**: English and Arabic support
+- **Role-based Access**: Admin, Project Manager, Vendor, Client roles
 
-### Advanced Features
-- **Schedule Integration**: Link milestones to project schedules (Primavera P6, MS Project)
-- **Evidence Management**: Upload and manage documents, photos, delivery receipts
-- **Risk Alerts**: Flag overdue milestones and forecast project impact
-- **Vendor Performance Analytics**: Track vendor reliability and performance metrics
-- **Earned Value Management (EVM)**: Calculate SPI and CPI based on milestone completions
-- **Audit Trail**: Complete logging of all milestone approvals and changes
-- **Multi-currency Support**: Handle projects across different countries and currencies
+## 🛠 Tech Stack
 
-## 🏗️ Architecture
+- **Frontend**: Next.js 14, React 18, TypeScript
+- **Styling**: Tailwind CSS
+- **Backend**: Supabase (PostgreSQL, Auth, Storage)
+- **Deployment**: Vercel
+- **Internationalization**: i18next
 
-### Database Schema
-- **Organizations**: Clients, vendors, contractors, consultants
-- **Users**: Role-based access control (admin, project_manager, vendor, client, consultant)
-- **Projects**: Project management with budget and timeline tracking
-- **Purchase Orders**: Procurement management with vendor relationships
-- **Milestones**: Flexible milestone tracking with templates and progress
-- **Invoices**: Payment management with approval workflows
-- **Notifications**: Real-time alerts and updates
-- **Audit Logs**: Complete change tracking
+## 📋 Prerequisites
 
-### Technology Stack
-- **Frontend**: Next.js 14, React 18, TypeScript, Tailwind CSS
-- **Backend**: Supabase (PostgreSQL, Auth, Real-time)
-- **UI Components**: Lucide React icons, custom components
-- **Charts**: Recharts for analytics and reporting
-
-## 🚀 Getting Started
-
-### Prerequisites
 - Node.js 18+ 
 - npm or yarn
 - Supabase account
+- Vercel account (for deployment)
 
-### Installation
+## 🚀 Quick Start
 
-1. **Clone the repository**
-   ```bash
-   git clone <repository-url>
-   cd milestone-tracker-saas
-   ```
+### 1. Clone and Install
 
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
+```bash
+git clone <your-repo-url>
+cd vendor-milestone-management-system
+npm install
+```
 
-3. **Set up environment variables**
-   ```bash
-   cp .env.example .env.local
-   ```
-   
-   Update `.env.local` with your Supabase credentials:
-   ```
-   NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
-   NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
-   ```
+### 2. Environment Setup
 
-4. **Set up the database**
-   - The database schema is already created in Supabase
-   - Sample data is included for demonstration
+Copy the environment file and configure your variables:
 
-5. **Run the development server**
-   ```bash
-   npm run dev
-   ```
+```bash
+cp .env.local.example .env.local
+```
 
-6. **Open your browser**
-   Navigate to [http://localhost:3000](http://localhost:3000)
+Update `.env.local` with your Supabase credentials:
 
-## 📊 Database Schema
+```env
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+SUPABASE_SERVICE_ROLE_KEY=your_service_role_key
+JWT_SECRET=your_jwt_secret
+```
 
-The platform uses a comprehensive PostgreSQL schema with the following key tables:
+### 3. Database Setup
 
-### Core Tables
-- `organizations` - Company and vendor information
-- `users` - User accounts with role-based access
-- `projects` - Project management and tracking
-- `purchase_orders` - Procurement management
-- `milestones` - Milestone tracking and progress
-- `invoices` - Payment and billing management
+Run the database migrations:
 
-### Supporting Tables
-- `milestone_templates` - Reusable milestone definitions
-- `milestone_evidence` - Document and file attachments
-- `milestone_approvals` - Approval workflow management
-- `project_team_members` - Project team assignments
-- `notifications` - Real-time alerts and updates
-- `audit_logs` - Complete change tracking
+```bash
+npx supabase db push
+```
 
-### Views
-- `project_overview` - Aggregated project statistics
-- `milestone_progress` - Milestone status and progress
-- `vendor_performance` - Vendor analytics and metrics
-- `invoice_summary` - Invoice status and details
+### 4. Development
 
-## 🎯 Use Cases
+```bash
+npm run dev
+```
 
-### For Project Managers
-- Centralized view of all projects and milestones
-- Real-time progress tracking and reporting
-- Vendor performance monitoring
-- Risk identification and management
-- Automated approval workflows
+Visit `http://localhost:3000` to see the application.
 
-### For Vendors
-- Self-service milestone updates
-- Evidence upload and management
-- Purchase order tracking
-- Progress reporting
-- Payment request submission
+### 5. Default Login
 
-### For Clients
-- Project visibility and oversight
-- Milestone approval authority
-- Progress monitoring
-- Budget tracking
-- Quality assurance
+- **Email**: `admin@acme.com`
+- **Password**: `admin123`
+
+## 🚀 Vercel Deployment
+
+### 1. Deploy to Vercel
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/your-username/vendor-milestone-management-system)
+
+### 2. Environment Variables
+
+Add these environment variables in your Vercel project settings:
+
+```env
+NEXT_PUBLIC_SUPABASE_URL=https://gbnmunfdgdnvlzcabyxf.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+SUPABASE_SERVICE_ROLE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+JWT_SECRET=ZRETyZEelQiukEh3AvUmzFoC6j6Ezxw5bt3gizeeaq9LGbWUInEFAMXZekLbN6ytnvJ4fcfBqWdYCw/PCieT5w==
+NEXT_PUBLIC_APP_URL=https://your-app-name.vercel.app
+NEXT_PUBLIC_DEFAULT_LOCALE=en
+NEXT_PUBLIC_DEFAULT_TIMEZONE=Asia/Riyadh
+```
+
+### 3. Database Migration
+
+After deployment, run the database migration:
+
+```bash
+npx supabase db push
+```
+
+## 📁 Project Structure
+
+```
+├── app/                    # Next.js app directory
+│   ├── api/               # API routes
+│   ├── auth/              # Authentication pages
+│   └── globals.css        # Global styles
+├── components/            # React components
+├── lib/                   # Utility functions
+├── supabase/              # Database migrations
+├── types/                 # TypeScript types
+└── public/                # Static assets
+```
 
 ## 🔧 Configuration
 
-### Milestone Templates
-Create custom milestone templates for different project types:
-- Procurement milestones (PO issued, manufacturing, shipment, delivery)
-- Construction milestones (foundation, installation, testing)
-- Commissioning milestones (pre-commissioning, testing, handover)
+### Supabase Setup
 
-### User Roles
-- **Admin**: Full system access and configuration
-- **Project Manager**: Project and milestone management
-- **Vendor**: Milestone updates and evidence submission
-- **Client**: Project oversight and milestone approval
-- **Consultant**: Project analysis and reporting
+1. Create a new Supabase project
+2. Run the migration script in `supabase/migrations/`
+3. Set up Row Level Security (RLS) policies
+4. Configure authentication settings
 
-### Approval Workflows
-Configure approval workflows based on:
-- Milestone type and value
-- Project complexity
-- Vendor performance history
-- Client requirements
+### Vercel Configuration
 
-## 📈 Analytics & Reporting
+The project includes optimized Vercel configuration:
 
-### Dashboard Metrics
-- Total projects and milestones
-- Completion rates and progress
-- Overdue milestones and risks
-- Budget utilization
-- Vendor performance
+- `vercel.json`: Deployment settings
+- `next.config.js`: Next.js optimization
+- Security headers and performance optimizations
 
-### Vendor Analytics
-- Completion rates by vendor
-- On-time delivery performance
-- Quality metrics
-- Historical performance trends
+## 🛡 Security Features
 
-### Project Analytics
-- Earned Value Management (EVM)
-- Schedule Performance Index (SPI)
-- Cost Performance Index (CPI)
-- Risk assessment and forecasting
+- **Authentication**: Supabase Auth with JWT tokens
+- **Authorization**: Role-based access control
+- **File Security**: Virus scanning, type validation, checksum verification
+- **Audit Logging**: Comprehensive activity tracking
+- **Data Encryption**: AES-256 encryption for sensitive data
 
-## 🔒 Security & Compliance
+## 🌐 Internationalization
 
-### Data Security
-- Role-based access control
-- Encrypted data transmission
-- Secure file uploads
-- Audit trail for all changes
+- **Languages**: English, Arabic
+- **Timezone**: Asia/Riyadh (UTC+3)
+- **RTL Support**: Full right-to-left layout support
 
-### Compliance Features
-- Regulatory compliance tracking
-- Payment approval workflows
-- Document management
-- Change control processes
+## 📊 Monitoring & Analytics
 
-## 🚀 Deployment
-
-### Production Deployment
-1. Set up production Supabase project
-2. Configure environment variables
-3. Deploy to Vercel, Netlify, or your preferred platform
-4. Set up domain and SSL certificates
-5. Configure monitoring and logging
-
-### Scaling Considerations
-- Database optimization for large datasets
-- CDN for file storage and delivery
-- Caching strategies for performance
-- Load balancing for high availability
+- Real-time dashboard with project statistics
+- Milestone progress tracking
+- Overdue items monitoring
+- Vendor performance metrics
+- Audit trail exports
 
 ## 🤝 Contributing
 
@@ -219,20 +171,19 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 ## 🆘 Support
 
 For support and questions:
+
 - Create an issue in the repository
-- Contact the development team
 - Check the documentation
+- Contact the development team
 
-## 🔮 Roadmap
+## 🔄 Updates
 
-### Upcoming Features
-- Mobile app for field updates
-- AI-powered milestone prediction
-- Advanced reporting and BI
-- Integration with ERP systems
-- Multi-language support
-- Advanced workflow automation
+Stay updated with the latest features and security patches by:
+
+- Watching the repository
+- Following release notes
+- Updating dependencies regularly
 
 ---
 
-Built with ❤️ for the construction and procurement industry.
+**Built with ❤️ for enterprise project management**

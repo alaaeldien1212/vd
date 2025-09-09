@@ -80,7 +80,7 @@ export default function VendorPortal() {
       setMilestones(milestoneData || [])
       setPurchaseOrders(poData?.map(po => ({
         ...po,
-        project_name: po.projects.name
+        project_name: (po.projects as any)?.name
       })) || [])
     } catch (error) {
       console.error('Error fetching vendor data:', error)

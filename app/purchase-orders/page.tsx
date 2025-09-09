@@ -48,8 +48,8 @@ export default function PurchaseOrdersPage() {
       const formattedData = data?.map(po => ({
         id: po.id,
         po_number: po.po_number,
-        project_name: po.projects?.name || 'Unknown Project',
-        vendor_name: po.organizations?.name || 'Unknown Vendor',
+        project_name: (po.projects as any)?.name || 'Unknown Project',
+        vendor_name: (po.organizations as any)?.name || 'Unknown Vendor',
         total_amount: po.total_amount,
         currency: po.currency,
         status: po.status,
