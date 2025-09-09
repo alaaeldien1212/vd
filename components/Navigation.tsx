@@ -7,7 +7,6 @@ import {
   Building2, 
   CheckCircle, 
   Calendar,
-  Users, 
   FileText, 
   BarChart3,
   Settings
@@ -16,7 +15,6 @@ import {
 const navigation = [
   { name: 'Dashboard', href: '/', icon: Home },
   { name: 'Projects', href: '/projects', icon: Building2 },
-  { name: 'Vendor Portal', href: '/vendor', icon: Users },
   { name: 'Purchase Orders', href: '/purchase-orders', icon: FileText },
   { name: 'Analytics', href: '/analytics', icon: BarChart3 },
   { name: 'Settings', href: '/settings', icon: Settings },
@@ -36,7 +34,7 @@ export default function Navigation() {
           </div>
           <div className="ml-3">
             <h1 className="text-xl font-bold text-gray-900">Milestone Tracker</h1>
-            <p className="text-xs text-gray-500">SaaS Platform</p>
+            <p className="text-xs text-gray-500">Manage your milestones and purchase orders</p>
           </div>
         </div>
       </div>

@@ -61,6 +61,20 @@ interface ScheduleActivity {
   status: string
 }
 
+interface PurchaseOrder {
+  id: string
+  po_number: string
+  title: string
+  description: string
+  total_amount: number
+  currency: string
+  status: string
+  issue_date: string
+  expected_delivery_date: string
+  vendor_name: string
+  created_at: string
+}
+
 export default function ProjectDetailPage() {
   const params = useParams()
   const projectId = params.id as string
@@ -68,8 +82,9 @@ export default function ProjectDetailPage() {
   const [project, setProject] = useState<Project | null>(null)
   const [milestones, setMilestones] = useState<Milestone[]>([])
   const [scheduleActivities, setScheduleActivities] = useState<ScheduleActivity[]>([])
+  const [purchaseOrders, setPurchaseOrders] = useState<PurchaseOrder[]>([])
   const [loading, setLoading] = useState(true)
-  const [activeTab, setActiveTab] = useState<'overview' | 'milestones' | 'schedule'>('overview')
+  const [activeTab, setActiveTab] = useState<'overview' | 'milestones' | 'schedule' | 'purchase-orders'>('overview')
   const [showNewMilestoneModal, setShowNewMilestoneModal] = useState(false)
   const [showViewEvidenceModal, setShowViewEvidenceModal] = useState(false)
   const [selectedMilestone, setSelectedMilestone] = useState<Milestone | null>(null)
@@ -147,6 +162,36 @@ export default function ProjectDetailPage() {
         setScheduleActivities([])
       } else {
         setScheduleActivities(scheduleData?.[0]?.schedule_activities || [])
+      }
+
+      // Fetch purchase orders
+      const { data: poData, error: poError } = await supabase
+        .from('purchase_orders')
+        .select(`
+          id,
+          po_number,
+          title,
+          description,
+          total_amount,
+          currency,
+          status,
+          issue_date,
+          expected_delivery_date,
+          created_at,
+          organizations!inner(name)
+        `)
+        .eq('project_id', projectId)
+        .order('created_at', { ascending: false })
+
+      if (poError) {
+        console.warn('No purchase orders found for project:', poError)
+        setPurchaseOrders([])
+      } else {
+        const formattedPOs = poData?.map(po => ({
+          ...po,
+          vendor_name: (po.organizations as any)?.name || 'Unknown Vendor'
+        })) || []
+        setPurchaseOrders(formattedPOs)
       }
 
     } catch (error) {
@@ -259,6 +304,12 @@ export default function ProjectDetailPage() {
               className={'py-4 px-1 border-b-2 font-medium text-sm ' + (activeTab === 'schedule' ? 'border-primary-500 text-primary-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300')}
             >
               Schedule ({scheduleActivities.length})
+            </button>
+            <button
+              onClick={() => setActiveTab('purchase-orders')}
+              className={'py-4 px-1 border-b-2 font-medium text-sm ' + (activeTab === 'purchase-orders' ? 'border-primary-500 text-primary-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300')}
+            >
+              Purchase Orders ({purchaseOrders.length})
             </button>
           </nav>
         </div>
@@ -540,6 +591,94 @@ export default function ProjectDetailPage() {
                         </td>
                       </tr>
                     ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'purchase-orders' && (
+          <div className="space-y-6">
+            <div className="flex justify-between items-center">
+              <h3 className="text-lg font-semibold text-gray-900">Purchase Orders</h3>
+            </div>
+
+            <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+              <div className="overflow-x-auto">
+                <table className="min-w-full divide-y divide-gray-200">
+                  <thead className="bg-gray-50">
+                    <tr>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        PO Number
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Title
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Vendor
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Amount
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Status
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Issue Date
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Expected Delivery
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody className="bg-white divide-y divide-gray-200">
+                    {purchaseOrders.length === 0 ? (
+                      <tr>
+                        <td colSpan={7} className="px-6 py-12 text-center text-gray-500">
+                          No purchase orders found for this project.
+                        </td>
+                      </tr>
+                    ) : (
+                      purchaseOrders.map((po) => (
+                        <tr key={po.id} className="hover:bg-gray-50">
+                          <td className="px-6 py-4 whitespace-nowrap">
+                            <div className="text-sm font-medium text-gray-900">{po.po_number}</div>
+                          </td>
+                          <td className="px-6 py-4">
+                            <div className="text-sm font-medium text-gray-900">{po.title}</div>
+                            {po.description && (
+                              <div className="text-sm text-gray-500 mt-1">{po.description}</div>
+                            )}
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                            {po.vendor_name}
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                            {po.currency} {po.total_amount.toLocaleString()}
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap">
+                            <span className={'inline-flex px-2 py-1 text-xs font-semibold rounded-full ' + (
+                              po.status === 'draft' ? 'bg-gray-100 text-gray-800' :
+                              po.status === 'issued' ? 'bg-blue-100 text-blue-800' :
+                              po.status === 'acknowledged' ? 'bg-yellow-100 text-yellow-800' :
+                              po.status === 'in_progress' ? 'bg-green-100 text-green-800' :
+                              po.status === 'completed' ? 'bg-green-100 text-green-800' :
+                              po.status === 'cancelled' ? 'bg-red-100 text-red-800' :
+                              'bg-gray-100 text-gray-800'
+                            )}>
+                              {po.status.replace('_', ' ')}
+                            </span>
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                            {po.issue_date ? new Date(po.issue_date).toLocaleDateString() : '-'}
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                            {po.expected_delivery_date ? new Date(po.expected_delivery_date).toLocaleDateString() : '-'}
+                          </td>
+                        </tr>
+                      ))
+                    )}
                   </tbody>
                 </table>
               </div>
