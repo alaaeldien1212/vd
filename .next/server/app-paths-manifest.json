@@ -1,1 +1,13 @@
-{}
+{
+  "/_not-found/page": "app/_not-found/page.js",
+  "/page": "app/page.js",
+  "/analytics/page": "app/analytics/page.js",
+  "/projects/page": "app/projects/page.js",
+  "/schedule/page": "app/schedule/page.js",
+  "/projects/[id]/page": "app/projects/[id]/page.js",
+  "/milestones/page": "app/milestones/page.js",
+  "/settings/page": "app/settings/page.js",
+  "/purchase-orders/page": "app/purchase-orders/page.js",
+  "/vendor/[token]/page": "app/vendor/[token]/page.js",
+  "/vendor/page": "app/vendor/page.js"
+}
