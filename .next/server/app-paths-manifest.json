@@ -1,0 +1,7 @@
+{
+  "/vendor/[token]/page": "app/vendor/[token]/page.js",
+  "/projects/[id]/page": "app/projects/[id]/page.js",
+  "/projects/page": "app/projects/page.js",
+  "/page": "app/page.js",
+  "/settings/page": "app/settings/page.js"
+}
