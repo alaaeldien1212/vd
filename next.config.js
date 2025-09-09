@@ -11,8 +11,6 @@ const nextConfig = {
   poweredByHeader: false,
   compress: true,
   trailingSlash: false,
-  // Use standard build for Netlify
-  output: 'standalone',
 }
 
 module.exports = nextConfig
