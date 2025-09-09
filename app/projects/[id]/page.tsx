@@ -45,7 +45,7 @@ interface Milestone {
   weight_percentage: number
   evidence_required: boolean
   evidence_count: number
-  vendor_notes: string
+  vendor_notes?: string
   rejection_reason?: string
 }
 
