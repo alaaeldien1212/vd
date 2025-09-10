@@ -1,13 +1,11 @@
 {
-  "/_not-found/page": "app/_not-found/page.js",
   "/analytics/page": "app/analytics/page.js",
-  "/projects/[id]/page": "app/projects/[id]/page.js",
-  "/projects/page": "app/projects/page.js",
-  "/schedule/page": "app/schedule/page.js",
-  "/vendor/page": "app/vendor/page.js",
+  "/_not-found/page": "app/_not-found/page.js",
   "/milestones/page": "app/milestones/page.js",
-  "/settings/page": "app/settings/page.js",
+  "/page": "app/page.js",
   "/purchase-orders/page": "app/purchase-orders/page.js",
-  "/vendor/[token]/page": "app/vendor/[token]/page.js",
-  "/page": "app/page.js"
+  "/schedule/page": "app/schedule/page.js",
+  "/projects/page": "app/projects/page.js",
+  "/settings/page": "app/settings/page.js",
+  "/vendor/page": "app/vendor/page.js"
 }

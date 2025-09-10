@@ -1,6 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: 'export',
+  trailingSlash: true,
   images: {
+    unoptimized: true,
     domains: ['gbnmunfdgdnvlzcabyxf.supabase.co'],
   },
   env: {
@@ -10,7 +13,8 @@ const nextConfig = {
   // Optimize for Netlify
   poweredByHeader: false,
   compress: true,
-  trailingSlash: false,
+  // Skip dynamic routes for static export
+  skipTrailingSlashRedirect: true,
 }
 
 module.exports = nextConfig
